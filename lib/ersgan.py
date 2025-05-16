@@ -32,7 +32,7 @@ class RealESRGAN:
     def __init__(self, scale=4):
         #self.device  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.scale = scale
-        self.model = RRDBNet()
+        
 
     def load_weights(self, model_path, download=True):
         
