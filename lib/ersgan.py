@@ -5,7 +5,7 @@ import os
 # import numpy as np
 # import cv2
 # from huggingface_hub import hf_hub_url, hf_hub_download
-#from realizer import RRDBNet
+from realizer import RRDBNet
 
 HF_MODELS = {
     2: dict(
@@ -22,14 +22,12 @@ HF_MODELS = {
     ),
 }
 
-class RRDBNet:
-    def __init__(self):
-        print('Thank you')
-        pass
+ 
 
 class RealESRGAN:
     
     def __init__(self, scale=4):
+        self.model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=scale)
         #self.device  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.scale = scale
         
