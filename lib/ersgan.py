@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 import cv2
 from huggingface_hub import hf_hub_url, hf_hub_download
-from realizer import RRDBNet
+from realizer import RRDBNet, pad_reflect, split_image_into_overlapping_patches, stich_together
 
 HF_MODELS = {
     2: dict(
@@ -93,4 +93,3 @@ class RealESRGAN:
         return sr_img
 
 
-RealESRGAN()
