@@ -1,10 +1,10 @@
-import os
-import torch
-from torch.nn import functional as F
-from PIL import Image
-import numpy as np
-import cv2
-from huggingface_hub import hf_hub_url, hf_hub_download
+# import os
+# import torch
+# from torch.nn import functional as F
+# from PIL import Image
+# import numpy as np
+# import cv2
+# from huggingface_hub import hf_hub_url, hf_hub_download
 from realizer import RRDBNet
 
 HF_MODELS = {
@@ -26,7 +26,7 @@ HF_MODELS = {
 class RealESRGAN:
     
     def __init__(self, scale=4):
-        self.device  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        #self.device  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.scale = scale
         self.model = RRDBNet(
             num_in_ch=3, num_out_ch=3, num_feat=64,
@@ -60,8 +60,7 @@ class RealESRGAN:
         self.model.eval()
         self.model.to(self.device)
 
-    @torch.cuda.amp.autocast()
-    
+    #@torch.cuda.amp.autocast()
     def predict(self, lr_image, batch_size=4, patches_size=192,
                 padding=24, pad_size=15):
         scale = self.scale
@@ -93,3 +92,6 @@ class RealESRGAN:
         sr_img = Image.fromarray(sr_img)
 
         return sr_img
+
+
+RealESRGAN()
