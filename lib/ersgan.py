@@ -27,7 +27,7 @@ class RRDBNet(nn.Module):
     
 
     def __init__(self, num_in_ch, num_out_ch, scale=4, num_feat=64, num_block=23, num_grow_ch=32):
-        super(RRDBNet, self).__init__()
+        super(self).__init__()
         self.scale = scale
         if scale == 2:
             num_in_ch = num_in_ch * 4
@@ -64,7 +64,7 @@ class RRDBNet(nn.Module):
         out = self.conv_last(self.lrelu(self.conv_hr(feat)))
         return out
 
-        
+
 class RealESRGAN:
     
     def __init__(self, scale=4):
