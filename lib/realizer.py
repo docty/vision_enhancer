@@ -123,7 +123,6 @@ def pixel_unshuffle(x, scale):
 
 
 import numpy as np
-import torch
 from PIL import Image
 import os
 import io
