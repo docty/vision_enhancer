@@ -30,8 +30,57 @@ class Clahe:
             cv2_imshow(combined)
         except ImportError:
             cv2.imshow(title, combined)
-            cv2.waitKey(0)
+            #cv2.waitKey(0)
              
+    def equalize_clahe_color_hsv(img):
+        """Equalize the image splitting it after conversion to HSV and applying CLAHE
+        to the V channel and merging the channels and convert back to BGR
+        """
+
+        cla = cv2.createCLAHE(clipLimit=4.0)
+        H, S, V = cv2.split(cv2.cvtColor(img, cv2.COLOR_BGR2HSV))
+        eq_V = cla.apply(V)
+        eq_image = cv2.cvtColor(cv2.merge([H, S, eq_V]), cv2.COLOR_HSV2BGR)
+        return eq_image
+
+
+    def equalize_clahe_color_lab(img):
+    """Equalize the image splitting it after conversion to LAB and applying CLAHE
+    to the L channel and merging the channels and convert back to BGR
+    """
+
+    cla = cv2.createCLAHE(clipLimit=4.0)
+    L, a, b = cv2.split(cv2.cvtColor(img, cv2.COLOR_BGR2Lab))
+    eq_L = cla.apply(L)
+    eq_image = cv2.cvtColor(cv2.merge([eq_L, a, b]), cv2.COLOR_Lab2BGR)
+    return eq_image
+
+
+    def equalize_clahe_color_yuv(img):
+        """Equalize the image splitting it after conversion to YUV and applying CLAHE
+        to the Y channel and merging the channels and convert back to BGR
+        """
+
+        cla = cv2.createCLAHE(clipLimit=4.0)
+        Y, U, V = cv2.split(cv2.cvtColor(img, cv2.COLOR_BGR2YUV))
+        eq_Y = cla.apply(Y)
+        eq_image = cv2.cvtColor(cv2.merge([eq_Y, U, V]), cv2.COLOR_YUV2BGR)
+        return eq_image
+
+
+    def equalize_clahe_color(img):
+        """Equalize the image splitting the image applying CLAHE to each channel
+        and merging the results
+        """
+
+        cla = cv2.createCLAHE(clipLimit=4.0)
+        channels = cv2.split(img)
+        eq_channels = []
+        for ch in channels:
+            eq_channels.append(cla.apply(ch))
+
+        eq_image = cv2.merge(eq_channels)
+        return eq_image
 
 
     def index_1(self):
@@ -93,3 +142,11 @@ class Clahe:
         enhanced_img = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
         self.display_side_by_side("CLAHE - index_3", image, enhanced_img)
+
+    def index_4(self):
+        image = cv2.imread(self.image_path)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        clahe = cv2.createCLAHE(clipLimit=2.0)
+        gray_image_clahe = clahe.apply(gray_image)
+
+        image_clahe_color = equalize_clahe_color(image)
