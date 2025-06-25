@@ -3,8 +3,10 @@ import numpy as np
 import os
 
 class Clahe:
-    def __init__(self, image_path="sample.jpg"):
+    def __init__(self, image_path="sample.jpg", clipLimit=2.0, tileGridSize=(8, 8)):
         self.image_path=image_path
+        self.clipLimit = clipLimit
+        self.tileGridSize = tileGridSize
          
 
     def display_image(self, title, image):
@@ -21,7 +23,7 @@ class Clahe:
         image_resized = cv2.resize(image, (500, 600))
         image_bw = cv2.cvtColor(image_resized, cv2.COLOR_BGR2GRAY)
         
-        clahe = cv2.createCLAHE(clipLimit=5)
+        clahe = cv2.createCLAHE(clipLimit=self.clipLimit)
         chahe_apply = clahe.apply(image_bw)
 
         clahe_img = np.clip(chahe_apply + 30, 0, 255).astype(np.uint8)
@@ -39,7 +41,7 @@ class Clahe:
         image_lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         l_channel, a_channel, b_channel = cv2.split(image_lab)
 
-        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+        clahe = cv2.createCLAHE(clipLimit=self.clipLimit, tileGridSize=self.tileGridSize)
         l_channel_clahe = clahe.apply(l_channel)
 
         lab_clahe = cv2.merge((l_channel_clahe, a_channel, b_channel))
