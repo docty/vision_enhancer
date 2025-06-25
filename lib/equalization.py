@@ -5,7 +5,7 @@ import os
 class Equalization:
     def __init__(self, image_path="sample.jpg"):
         self.image_path=image_path
-        equImage = index()
+        equImage = self.index()
         self.display_image("Equalizer Image", equImage)
         #self.display_image("Ordinary Threshold", threshold_img)
 
