@@ -7,6 +7,7 @@ class Clahe:
         self.image_path=image_path
         threshold_img, clahe_img = self.index()
         self.display_image("CLAHE Image", clahe_img)
+        #self.display_image("Ordinary Threshold", threshold_img)
 
     def display_image(self, title, image):
         try:
