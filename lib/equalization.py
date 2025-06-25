@@ -16,10 +16,10 @@ class Equalization:
         except ImportError:
             cv2.imshow(title, image)
             cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            #cv2.destroyAllWindows()
         
     def index(self):
-        img = cv2.imread('/kaggle/working/image29-261x300.jpg', cv.IMREAD_GRAYSCALE)
+        img = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
         assert img is not None, "file could not be read, check with os.path.exists()"
         equ = cv2.equalizeHist(img)
         
